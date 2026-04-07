@@ -1,0 +1,1 @@
+print("traduireAI setup working")

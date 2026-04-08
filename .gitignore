@@ -4,4 +4,4 @@ __pycache__/
 
 # Virtual env
 .venv/
-
+.idea/

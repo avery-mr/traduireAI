@@ -2,19 +2,20 @@ from datasets import load_dataset
 import nltk
 from nltk.tokenize import word_tokenize
 
-validation_ds = load_dataset(
-    "Helsinki-NLP/OpenSubtitles2024",
-    split="validation",
-    trust_remote_code=True,
-    language_pairs="en-it",
-)
+### OPUS BOOKS DATASET ###
 # dataset = load_dataset("Helsinki-NLP/opus_books", "en-it")
-# print(dataset)
+
+### OPENSUBTITLES 2024 DATASET (LOCAL) $###
+dataset = load_dataset(
+    "parquet",
+    data_files="../data/dev/en-it_dev.parquet"
+)
+
 
 # nltk.download("punkt")
 # nltk.download("punkt_tab")
 
-# train_ds = dataset["train"].select(range(10000))
+train_ds = dataset["train"].select(range(10000))
 
 
 
@@ -36,7 +37,7 @@ it_unigrams = {}
 it_bigrams = {}
 
 for sentence in little_test:
-    it_text = sentence["translation"]["it"]
+    it_text = sentence["tgt_text"]
     # print(it_test_text)
     it_tokens = ["<s>"] + tokenize(it_text) + ["</s>"]  # add sentence start and stop 'characters', helps learn how sentence is structured
     # print(it_test_tokens)
@@ -72,7 +73,11 @@ print(sorted(it_bigrams.items(), key=lambda x: x[1], reverse=True)[:20])
 
 def bigram_prob(word1, word2):
     word_1_2_count = it_bigrams.get((word1, word2), 0)
-    word_1_count = it_unigrams.get(word1)
+    word_1_count = it_unigrams.get(word1, 0)
+
+    if word_1_count == 0:      # just in case
+        return 0
+
     return(word_1_2_count / word_1_count)
 
 print(bigram_prob(',', 'che'))

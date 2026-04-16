@@ -21,3 +21,40 @@
 ('table', [('sul', 0.07547169811320754), ('tavolo', 0.07547169811320754), ('i', 0.03773584905660377)])
 ('eat', [('che', 0.037037037037037035), ('mangiano', 0.027777777777777776), ('i', 0.027777777777777776)])
 ('without', [('senza', 0.08571428571428572), ('di', 0.060714285714285714), ('non', 0.04642857142857143)])
+
+
+
+- first results from very simple translate
+"my house" -> "la casa"
+"I love you" -> "non ti che"
+"the car" -> "il in"
+"without you" -> "non che"
+"your table" -> "il tavolo"
+"can I help you" -> "la non che non"
+
+* need to filter out high-occurence words with little meaning ("the", "a", "do", "of", etc)
+* add STOPWORDS
+
+
+### didn't work!
+
+"my house" -> "ha"
+"I love you" -> "non ti che"
+"the car" -> "julia"
+"without you" -> "senza"
+"your table" -> "è"
+"can I help you" -> "è"
+
+
+
+- got rid of stopwords for now, changed scoring system
+"my house" -> "mia casa"
+"I love you" -> "non ti che"
+"the car" -> "il in"
+"without you" -> "senza di"
+"your table" -> "il tavolo"
+"can I help you" -> "la non aiuto che"
+
+- let's try a much longer sentence
+print(translate("yesterday I went to the market with my sister"))
+michael non è di il con la sorella

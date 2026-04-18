@@ -58,3 +58,7 @@
 - let's try a much longer sentence
 print(translate("yesterday I went to the market with my sister"))
 michael non è di il con la sorella
+
+
+intersting translation
+{'src_text': "We're gonna go out again.", 'tgt_text': '- Andiamo. - Rivediamoci.', 'src_lang': 'en', 'tgt_lang': 'it'}

@@ -62,3 +62,79 @@ michael non è di il con la sorella
 
 interesting translation - some of the translation data is not very good (e.g. names, slang, just plain wrong)
 {'src_text': "We're gonna go out again.", 'tgt_text': '- Andiamo. - Rivediamoci.', 'src_lang': 'en', 'tgt_lang': 'it'}
+
+
+
+score(w)=translation_prob(w∣e)+0.1⋅bigram_prob(w∣wprev​)
+
+English:  My dad is a storyteller.
+Target Italian:  Mio papà è un narratore.
+Baseline Model: mia padre è un
+English:  Do you know about rakugo?
+Target Italian:  Hai presente il rakugo?
+Baseline Model: non che non di
+English:  Yeah.
+Target Italian:  Sì.
+Baseline Model: sì
+English:  He's on TV a lot.
+Target Italian:  Passa spesso in TV.
+Baseline Model: è è di tv un lot
+English:  He had a reputation for casually saying things that upset people, so I was a little embarrassed about it.
+Target Italian:  Ha la fama di dire senza pensare cose che fanno arrabbiare gli altri, quindi me ne vergogno un po'.
+Baseline Model: è un un rovini per che cose che ha che che non è un un ti di è
+English:  Maybe you know him.
+Target Italian:  Forse lo conosci.
+Baseline Model: forse non non non
+English:  His name is Donraku.
+Target Italian:  Si chiama Donraku.
+Baseline Model: il nome è
+English:  Huh...
+Target Italian:  Oh...
+Baseline Model: è
+English:  Mitsuya Yuki
+Target Italian:  Mitsuya Yuki
+Baseline Model:
+English:  Mitsuya Yuki ...High School, Saitama...
+Target Italian:  Mitsuya Yuki ... scuole superiori, Saitama...
+Baseline Model: è di
+English:  Running Long Jump
+Target Italian:  Salto in lungo
+Baseline Model: non tempo quando
+English:  - Final Group 1
+Target Italian:  - Finale 1
+Baseline Model: del foto
+English:  Mitsuya Yuki
+Target Italian:  Mitsuya Yuki
+Baseline Model:
+English:  Donraku
+Target Italian:  Donraku
+Baseline Model:
+English:  Donraku TV
+Target Italian:  Donraku TV
+Baseline Model: tv
+English:  Donraku child ...has commitment issues and previously acknowledged affairs in the past. Rakugo storyteller Shofutei Donraku-san results of our investigation revealed their identities... secret lovechild ...influential rakugo storyteller Master Shofutei Donraku.
+Target Italian:  Donraku figli ... non riesce a mantenere una relazione stabile e ha già ammesso tradimenti in passato.
+Baseline Model: un è tuo i e che di il passato risultati di la sono il segreto il
+English:  Previously divorced...?
+Target Italian:  L'artista del rakugo Shofutei Donraku i risultati della nostra indagine ne hanno svelato l'identità... figli illegittimi ... influente artista del rakugo, il maestro Shofutei Donraku. ... ha divorziato in passato?
+Baseline Model:
+English:  ...children also storytellers?
+Target Italian:  ... i figli sono anch'essi artisti?
+Baseline Model: figli non
+English:  A deep dive!
+Target Italian:  Un'analisi approfondita!
+Baseline Model: un non
+English:  Donraku secret lovechild ...Master Shofutei Donraku has multiple secret children...
+Target Italian:  Donraku figli illegittimi ... il maestro Shofutei Donraku ha numerosi figli non riconosciuti...
+Baseline Model: segreto il è svariati segreto figli
+
+
+
+
+
+Penalize function words
+“Because co-occurrence-based translation probabilities overgenerate frequent function words, I applied a small stopword-style filter to reduce implausible candidate translations for content words.”
+
+
+switch to log based scoring
+score(w)=λlogPtrans​(w∣e)+(1−λ)logPbigram​(w∣wprev​)

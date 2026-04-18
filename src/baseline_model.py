@@ -132,7 +132,7 @@ def bigram_prob(word1, word2):
 #### putting it all together
 #### score = translation_prob(e_i, w_i) * bigram_prob(prev_word, w_i)
 
-def translate(en_sentence, k=3):
+def translate(en_sentence, k=5):
     en_tokens = [t for t in tokenize(en_sentence) if is_word(t)]
 
     output = []

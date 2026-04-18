@@ -12,11 +12,13 @@ def translate_transformer(text):
 
     return output
 
-print(translate_transformer("my house"))
-print(translate_transformer("I love you"))
-print(translate_transformer("the car"))
-print(translate_transformer("without you"))
-print(translate_transformer("your table"))
-print(translate_transformer("can I help you"))
-print(translate_transformer("This evening I had dinner at a lovely restaurant before leaving for the airport."))
 
+
+if __name__ == "__main__":
+    print(translate_transformer("my house"))
+    print(translate_transformer("I love you"))
+    print(translate_transformer("the car"))
+    print(translate_transformer("without you"))
+    print(translate_transformer("your table"))
+    print(translate_transformer("can I help you"))
+    print(translate_transformer("This evening I had dinner at a lovely restaurant before leaving for the airport."))

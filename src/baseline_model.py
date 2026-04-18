@@ -1,4 +1,5 @@
 from datasets import load_dataset
+import math
 import nltk
 from nltk.tokenize import word_tokenize
 from stopwords import english_stopwords, italian_stopwords, italian_skipwords
@@ -131,8 +132,7 @@ def bigram_prob(word1, word2):
 
 #### putting it all together
 #### score = translation_prob(e_i, w_i) * bigram_prob(prev_word, w_i)
-
-def translate(en_sentence, k=5):
+def translate_baseline(en_sentence, k=5, weight=0.85):
     en_tokens = [t for t in tokenize(en_sentence) if is_word(t)]
 
     output = []
@@ -145,12 +145,14 @@ def translate(en_sentence, k=5):
             continue
 
         best_word = None
-        best_score = -1     # start with a negative score
+        best_score = float("-inf")     # with log scoring now negative, use -inf
 
         for it_word, trans_prob in word_options:
-            order_prob = max(bigram_prob(prev_word, it_word), 1e-6)  # just in case order_prob = 0
+            trans_prob = max(trans_prob, 1e-12)
+            order_prob = max(bigram_prob(prev_word, it_word), 1e-12)  # just in case order_prob = 0
             # score = order_prob * (trans_prob ** 2)
-            score = trans_prob + 0.1 * order_prob
+            # score = trans_prob + 0.1 * order_prob
+            score = weight * math.log(trans_prob) + (1 - weight) * math.log(order_prob)
             # print("score:" , score)
 
             if score > best_score:
@@ -171,14 +173,14 @@ def translate(en_sentence, k=5):
 
 
 if __name__ == "__main__":
-    # print(translate("my house"))
-    # print(translate("I love you"))
-    # print(translate("the car"))
-    # print(translate("without you"))
-    # print(translate("your table"))
-    # print(translate("can I help you"))
-    print(translate("yesterday I went to the market with my sister"))
-    print(translate("how are you today?"))
+    print(translate_baseline("my house"))
+    print(translate_baseline("I love you"))
+    print(translate_baseline("the car"))
+    print(translate_baseline("without you"))
+    print(translate_baseline("your table"))
+    print(translate_baseline("can I help you"))
+    print(translate_baseline("yesterday I went to the market with my sister"))
+    print(translate_baseline("how are you today?"))
 
 
 

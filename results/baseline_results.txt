@@ -130,7 +130,11 @@ Baseline Model: segreto il è svariati segreto figli
 
 
 
-
+interstingly correct translation but technically wrong:
+English:  Here.
+Target Italian:  Tenete.
+Baseline Model: qui
+Transformer Model: Ecco.
 
 Penalize function words
 “Because co-occurrence-based translation probabilities overgenerate frequent function words, I applied a small stopword-style filter to reduce implausible candidate translations for content words.”
@@ -138,3 +142,28 @@ Penalize function words
 
 switch to log based scoring
 score(w)=λlogPtrans​(w∣e)+(1−λ)logPbigram​(w∣wprev​)
+
+
+Implementing BLUE:
+reference.append(tokenize(ita_ref))
+should have been:
+reference.append([tokenize(ita_ref)])
+took a LONG time to figure this out
+
+1000 sentence subset:
+BLEU Baseline score:  0.003816958655144615
+BLEU MarianMT score:  0.16845392601552417
+
+
+full dataset:
+BLEU Baseline score:  0.008066532049335457
+BLEU MarianMT score:  0.4074245866101006
+
+One limitation encountered during evaluation is that the OpenSubtitles dataset often contains non-literal translations and loosely aligned sentence pairs. As a result, even high-quality translations produced by the transformer model may receive relatively low BLEU scores if they differ in wording or structure from the reference. For example, semantically equivalent translations using different verbs or phrasing are penalized due to low n-gram overlap. This suggests that BLEU may underestimate true translation quality in this setting.
+
+other funny translations :
+English:  Those damn nepo-baby Diet members—
+Italian Reference:  Quei maledetti raccomandati che fanno parte della Dieta—
+Baseline Translation:  che la broadrail
+MarianMT Translation:  Quei dannati membri della Nepo-Baby Diet [49]
+

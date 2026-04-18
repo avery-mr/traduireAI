@@ -60,5 +60,5 @@ print(translate("yesterday I went to the market with my sister"))
 michael non è di il con la sorella
 
 
-intersting translation
+interesting translation - some of the translation data is not very good (e.g. names, slang, just plain wrong)
 {'src_text': "We're gonna go out again.", 'tgt_text': '- Andiamo. - Rivediamoci.', 'src_lang': 'en', 'tgt_lang': 'it'}

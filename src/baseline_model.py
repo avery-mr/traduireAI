@@ -63,7 +63,7 @@ def best_translations(en_word, k=3):
         return []
     return sorted(translation_probs[en_word].items(), key=lambda x: x[1], reverse=True)[:k]
 
-print(best_translations("house"))
+# print(best_translations("house"))
 # print(best_translations("love"))
 # print(best_translations("car"))
 # print(best_translations("my"))
@@ -166,17 +166,19 @@ def translate(en_sentence, k=3):
 
 
 
-# print(translate("my house"))
-# print(translate("I love you"))
-# print(translate("the car"))
-# print(translate("without you"))
-# print(translate("your table"))
-# print(translate("can I help you"))
-print(translate("yesterday I went to the market with my sister"))
 
 
 
 
+if __name__ == "__main__":
+    # print(translate("my house"))
+    # print(translate("I love you"))
+    # print(translate("the car"))
+    # print(translate("without you"))
+    # print(translate("your table"))
+    # print(translate("can I help you"))
+    print(translate("yesterday I went to the market with my sister"))
+    print(translate("how are you today?"))
 
 
 

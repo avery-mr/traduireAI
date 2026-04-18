@@ -1,14 +1,22 @@
 from datasets import load_dataset
-import baseline_model, transformer_model
+from baseline_model import translate
 
 
-dataset = load_dataset(
+test_set = load_dataset(
     "parquet",
-    data_files="../data/dev/en-it_dev.parquet"
+    data_files="../data/test/en-it_test.parquet"
 )
+#
+# print("dataset")
+# print(test_set)
+# print
+# ita = test_set["train"][100]["tgt_text"]
+# print(ita)
+# print(translate("how are you today?"))
 
-print("dataset")
-print(dataset)
-print(dataset["test"][10]["src_text"])
-# nltk.download("punkt")
-# nltk.download("punkt_tab")
+for i in range(30, 50):
+    enu = test_set["train"][i]["src_text"]
+    ita = test_set["train"][i]["tgt_text"]
+    print("English: ", enu)
+    print("Target Italian: ", ita)
+    print("Baseline Model:", translate(enu))

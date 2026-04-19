@@ -9,16 +9,23 @@ def tokenize(text):
 
 
 
-def evaluate_all():
+def evaluate_models(sample_size=None):
     dataset = load_dataset("parquet", data_files="../data/test/en-it_test.parquet")
+    all_data = dataset["train"]
+    if sample_size is None:
+        eval_data = all_data
+    else:
+        if sample_size > len(all_data):
+            raise ValueError("Sample size cannot be greater than dataset size")
+        else:
+            eval_data = all_data.shuffle(seed=100).select(range(sample_size))
 
-    # eval_data = dataset["train"].select(range(100))
-    eval_data = dataset["train"]
 
     reference = []
     baseline_results = []
     transformer_results = []
 
+    print("\n 5 Example Entries: ")
     for i, row in enumerate(eval_data):
         enu_ref = row["src_text"]
         ita_ref = row["tgt_text"]
@@ -26,12 +33,13 @@ def evaluate_all():
         xform_out = translate_transformer(enu_ref)
         baseline_out = translate_baseline(enu_ref, 10)
 
-        # if i < 10:                                 ### print out a few results
-        #     print("English: ", enu_ref)
-        #     print("Italian Reference: ", ita_ref)
-        #     print("Baseline Translation: ", baseline_out)
-        #     print("MarianMT Translation: ", xform_out)
-        #     print()
+
+        if i < 5:                                 ### print out a few results
+            print("\nEnglish: ", enu_ref)
+            print("Italian Reference: ", ita_ref)
+            print("Baseline Translation: ", baseline_out)
+            print("MarianMT Translation: ", xform_out)
+            print()
 
         reference.append([tokenize(ita_ref)])   ### aaggghhhhhh
         baseline_results.append(tokenize(baseline_out))
@@ -46,4 +54,4 @@ def evaluate_all():
     print("BLEU MarianMT score: ", bleu_xform)
 
 if __name__ == "__main__":
-    evaluate_all()
+    evaluate_models()
